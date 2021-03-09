@@ -32,8 +32,6 @@ codon_table = 2     # Вариации генетического кода с NC
                     # 26: Pachysolen tannophilus Nuclear Code   27: Karyorelict Nuclear     28: Condylostoma Nuclear
                     # 29: Mesodinium Nuclear    30: Peritrich Nuclear  31: Blastocrithidia Nuclear
 
-# codons64 = sorted(list(unambiguous_dna_by_id[codon_table].forward_table.keys()) + unambiguous_dna_by_id[codon_table].stop_codons)
-
 codons64 = ['AAA', 'AAC', 'AAG', 'AAT', 'ACA', 'ACC', 'ACG', 'ACT', 'AGA', 'AGC', 'AGG', 'AGT', 'ATA', 'ATC',
              'ATG', 'ATT', 'CAA', 'CAC', 'CAG', 'CAT', 'CCA', 'CCC', 'CCG', 'CCT', 'CGA', 'CGC', 'CGG', 'CGT',
              'CTA', 'CTC', 'CTG', 'CTT', 'GAA', 'GAC', 'GAG', 'GAT', 'GCA', 'GCC', 'GCG', 'GCT', 'GGA', 'GGC',
