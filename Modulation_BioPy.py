@@ -61,21 +61,8 @@ for p in range(len(species_list)): # Цикл по списку видов
 
         # Генератор генома на основе CodonUsage текущего вида
 
-        # sum_AA = pd.read_csv('CodonUsageSummary.csv', sep='\t')
         AA = pd.read_csv('AminoAcidsUsage.csv', sep='\t')
         DNA = []
-
-        # codon_dict_AA = {
-        #     'DNA': [['TTT', 'TTC'], ['TTA', 'TTG', 'CTT', 'CTC', 'CTA', 'CTG'],
-        #             ['TCT', 'TCC', 'TCA', 'TCG', 'AGT', 'AGC'],
-        #             ['TAT', 'TAC'], ['TAA', 'TAG', 'AGA', 'AGG'], ['TGT', 'TGC'], ['TGA', 'TGG'],
-        #             ['CCT', 'CCC', 'CCA', 'CCG'],
-        #             ['CAT', 'CAC'], ['CAA', 'CAG'], ['CGT', 'CGC', 'CGA', 'CGG'], ['ATT', 'ATC'], ['ATA', 'ATG'],
-        #             ['ACT', 'ACC', 'ACA', 'ACG'], ['AAT', 'AAC'], ['AAA', 'AAG'], ['GTT', 'GTC', 'GTA', 'GTG'],
-        #             ['GCT', 'GCC', 'GCA', 'GCG'], ['GAT', 'GAC'], ['GAA', 'GAG'], ['GGT', 'GGC', 'GGA', 'GGG']],
-        #     'AA': ['F', 'L', 'S', 'Y', '_', 'C', 'W', 'P', 'H', 'Q', 'R', 'I', 'M', 'T', 'N', 'K', 'V', 'A', 'D', 'E',
-        #            'G']}
-        # amin_codon = dict(zip(codon_dict_AA['AA'], codon_dict_AA['DNA']))
 
         aminoacid_codon = {}     # Создает словарь {Аминокислота : [кодоны]} на основе таблиц кодонов с NCBI
         for c in unambiguous_dna_by_id[2].forward_table:
@@ -100,23 +87,7 @@ for p in range(len(species_list)): # Цикл по списку видов
             # Список однонуклеотидных замен
 
         for generation in range(number_of_generations):
-            # Мутагенез через строку нуклеотидов
-            # for codon_id in range(len(seq) // 3):
-            #     codon = seq[codon_id*3:codon_id*3+3]
-            #     mut_id = random.randint(0, 2)
-            #     mut_probability = random.uniform(0, mutspec_norm[-1])
-            #     counter = 0
-            #     while mut_probability >= mutspec_norm[counter + 1]:
-            #         counter += 1
-            #     if codon[mut_id] == mutations[counter][0]:
-            #         new_codon = codon
-            #         codon = codon.toseq()
-            #         new_codon[mut_id] = mutations[counter][2]
-            #         if codon.translate(table="Vertebrate Mitochondrial") == new_codon.toseq().translate(
-            #                 table="Vertebrate Mitochondrial"):
-            #             seq[codon_id*3:codon_id*3+3] = new_codon
-
-            # Мутагенез через список кодонов
+            # Мутагенез
             for codon_id in range(len(DNA)):        # Цикл по всей ДНК
                 codon = MutableSeq(DNA[codon_id])   # Выбираем отдельный кодон
                 mut_id = random.randint(0, 2)       # Выбираем нуклеотид из этого кодона
@@ -130,9 +101,6 @@ for p in range(len(species_list)): # Цикл по списку видов
                     new_codon[mut_id] = mutations[counter][2]           # Подставляем нуклеотид в кодоне
                     if codon.translate(table=codon_table) == new_codon.toseq().translate(table=codon_table):
                         DNA[codon_id] = str(new_codon)      # Проверка на синонимичность мутировавшего кодона
-
-            # print('Время мутагенеза: {}'.format(datetime.now( ) - stage_time))
-            # stage_time = datetime.now()
 
             if generation % 1 == 0: # Регулирует раз в сколько поколений считать частоты кодонов
                 # Разбивка на список кодонов
@@ -155,7 +123,6 @@ for p in range(len(species_list)): # Цикл по списку видов
                 CodonUsage.to_csv('Results_Bio\{}\{}\Codons.csv'.format(species, sample), sep='\t', index=False)
                 Frequency.to_csv('Results_Bio\{}\{}\Frequencies.csv'.format(species, sample), sep ='\t', index=False)
                 # Сохраняет значения
-            # print('Время расчета частот: {}'.format(datetime.now( ) - stage_time))
 
         # Расчет корреляций и p-value
         data = pd.read_csv('Results_Bio\{}\{}\Frequencies.csv'.format(species, sample), sep='\t')
