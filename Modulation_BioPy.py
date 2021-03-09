@@ -12,12 +12,10 @@ start_time = datetime.now()
 
 number_of_generations = 150     # Количество поколений
 
-species_list = ['Myodes_glareolus']     # 'Abbottina_rivularis', 'Uroplatus_ebenaui', 'Eopsaltria_australis',
-                                    # 'Tylototriton_verrucosus', 'Cavia_porcellus',
+species_list = ['Mus_musculus']     # Список видов. Скрипт проработает про всем
+                                    # 'Abbottina_rivularis', 'Uroplatus_ebenaui', 'Eopsaltria_australis',
+                                    # 'Tylototriton_verrucosus', 'Cavia_porcellus' - то, что проверял
 
-                                    # 'Monodelphis_domestica', 'Mus_musculus', 'Myodes_glareolus' ~ 5
-                                    # 'Pan_troglodytes', 'Macaca_fascicularis', 'Cercopithecus_mitis' > 38
-                                    # https://genomics.senescence.info/species/
 
 codon_table = 2     # Вариации генетического кода с NCBI:
                     # 1: Standard   2: Vertebrate Mitochondrial 3: Yeast Mitochondrial
